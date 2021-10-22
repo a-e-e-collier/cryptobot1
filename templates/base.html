@@ -1,0 +1,139 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en" class="loading">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="Convex admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords" content="admin template, Convex admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="PIXINVENT">
+    <title>Uniswap Bot</title>
+    <link rel="apple-touch-icon" sizes="60x60" href="{%static "app-assets/img/ico/apple-icon-60.png" %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{%static "app-assets/img/ico/apple-icon-76.png" %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{%static "app-assets/img/ico/apple-icon-120.png" %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{%static "app-assets/img/ico/apple-icon-152.png" %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{%static "app-assets/img/ico/favicon.ico" %}">
+    <link rel="shortcut icon" type="image/png" href="{%static "app-assets/img/ico/favicon-32.png" %}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900%7CMontserrat:300,400,500,600,700,800,900" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="{%static "app-assets/fonts/feather/style.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{%static "app-assets/fonts/simple-line-icons/style.css" %}">
+    <link rel="stylesheet" type="text/css" href="{%static "app-assets/fonts/font-awesome/css/font-awesome.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{%static "app-assets/vendors/css/perfect-scrollbar.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{%static "app-assets/vendors/css/prism.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{%static "app-assets/css/app.css" %}">
+    <link rel="stylesheet" type="text/css" href="{%static "app-assets/vendors/css/jquerydatatablecss/jquery.dataTables.min.css"%}">
+    <link rel="stylesheet" type="text/css" href="{%static "app-assets/vendors/css/jquerydatatablecss/editor.dataTables.min.css"%}">
+    <link rel="stylesheet" type="text/css" href="{%static "app-assets/vendors/css/jquerydatatablecss/select.dataTables.min.css"%}">
+    <link rel="stylesheet" type="text/css" href="{%static "app-assets/vendors/css/jquerydatatablecss/buttons.dataTables.min.css"%}">
+      <link rel="stylesheet" type="text/css" href="{%static "app-assets/vendors/css/core/bootstrap.min.css" %}">
+      <!-- BEGIN PAGE LEVEL CSS-->
+        {% block css %}
+
+        {% endblock %}
+        <!-- END PAGE LEVEL CSS-->
+    <style>
+        form .form-group {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+  </head>
+  <body data-col="2-columns" class=" 2-columns ">
+    <!-- ////////////////////////////////////////////////////////////////////////////-->
+    <div class="wrapper">
+        <div id="loading" style="position:absolute; z-index: 99999; display:none; margin-left:48%; margin-top:20%;">
+            <img src="{% static "app-assets/img/loading.gif" %}">
+        </div>
+
+      <div data-active-color="white" data-background-color="aqua-marine" data-image="{%static "app-assets/img/sidebar-bg/02.jpg"%}" class="app-sidebar">
+        <div class="sidebar-header">
+          <div class="logo clearfix">
+              <a href="/" class="logo-text float-left">
+                  <div class="logo-img"><img src="{%static "app-assets/img/logo.png" %}" alt="Convex Logo"/></div>
+                  <span class="text align-middle">TOOL</span>
+              </a>
+          </div>
+        </div>
+        <div class="sidebar-content">
+          <div class="nav-container">
+            <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
+              <li class="nav-item cookie-dep"><a href="/"><i class="icon-home"></i><span data-i18n="" class="menu-title">Main</span></a>
+              </li>
+{#              <li class=" nav-item"><a href="help.html"><i class="icon-layers"></i><span data-i18n="" class="menu-title">Help</span></a>#}
+{#              </li>#}
+
+            </ul>
+          </div>
+        </div>
+        <div class="sidebar-background"></div>
+      </div>
+
+      <div class="main-panel">
+        <div class="main-content">
+          <div class="content-wrapper">
+            {% block content %}
+            {% endblock %}
+          </div>
+        </div>
+
+        <footer class="footer footer-static footer-light">
+          <p class="clearfix text-muted text-center px-2"><span>Copyright  &copy; 2020 Uniswap Bot, All rights reserved. </span></p>
+        </footer>
+      </div>
+    </div>
+    <div id="waiting" class=""></div>
+    <!-- ////////////////////////////////////////////////////////////////////////////-->
+
+    <!-- BEGIN VENDOR JS-->
+
+    <script src="{% static "app-assets/vendors/js/jquerydatatablesref/papaparse.min.js" %}"></script>
+    <!--<script src="{% static "app-assets/vendors/js/core/jquery-3.3.1.min.js" %}"></script>-->
+    <script src ="{% static "app-assets/vendors/js/jquerydatatablesref/jquery-3.3.1.js" %}"></script>
+    <script src="{% static "app-assets/vendors/js/jquerydatatablesref/jquery.dataTables.min.js" %}"></script>
+    <!--<script src="{% static "app-assets/vendors/js/jquerydatatablesref/dataTables.editor.min.js" %}"></script>-->
+    <script src="{% static "app-assets/vendors/js/jquerydatatablesref/dataTables.editor.js" %}"></script>
+    <script src="{% static "app-assets/vendors/js/jquerydatatablesref/dataTables.select.min.js" %}"></script>
+    <script src="{% static "app-assets/vendors/js/jquerydatatablesref/dataTables.buttons.min.js" %}"></script>
+    <script src="{% static "app-assets/vendors/js/jquerydatatablesref/jszip.min.js" %}"></script>
+    <script src="{% static "app-assets/vendors/js/jquerydatatablesref/pdfmake.min.js" %}"></script>
+    <script src="{% static "app-assets/vendors/js/jquerydatatablesref/vfs_fonts.js" %}"></script>
+    <script src="{% static "app-assets/vendors/js/jquerydatatablesref/buttons.html5.min.js" %}"></script>
+    <script src="{% static "app-assets/vendors/js/jquerydatatablesref/buttons.print.min.js" %}"></script>
+
+
+    <script src="{%static "app-assets/vendors/js/core/popper.min.js" %}"></script>
+    <script src="{%static "app-assets/vendors/js/core/bootstrap.min.js" %}"></script>
+    <script src="{%static "app-assets/vendors/js/perfect-scrollbar.jquery.min.js" %}"></script>
+    <script src="{%static "app-assets/vendors/js/prism.min.js" %}"></script>
+    <script src="{%static "app-assets/vendors/js/jquery.matchHeight-min.js" %}"></script>
+    <script src="{%static "app-assets/vendors/js/screenfull.min.js" %}"></script>
+    <script src="{%static "app-assets/vendors/js/pace/pace.min.js" %}"></script>
+
+
+    <!-- BEGIN VENDOR JS -->
+    <!-- BEGIN PAGE VENDOR JS-->
+    <!-- END PAGE VENDOR JS-->
+    <!-- BEGIN CONVEX JS-->
+    <script src="{%static "app-assets/js/app-sidebar.js" %}"></script>
+    <script src="{%static "app-assets/js/notification-sidebar.js" %}"></script>
+    <!-- END CONVEX JS-->
+    <script>
+
+        $(document).ready(function(){
+
+
+        });
+
+    </script>
+
+    <!-- BEGIN PAGE LEVEL JS-->
+    {% block javascript %}
+    {% endblock %}
+    <!-- END PAGE LEVEL JS-->
+  </body>
+</html>

@@ -1,0 +1,252 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container-fluid"><!-- Basic form layout section start -->
+    <section id="basic-form-layouts">
+        <div class="row">
+            <div class="col-md-6 align-content-center">
+                <div class="card">
+                     <div class="card-body">
+                        <div class="px-3">
+                            <form class="form" processurl="/uploadfiles" id="zipfileform" enctype="multipart/form-data">
+                                <div class="form-body">
+                                    <h4 class="form-section">
+                                        <i class="icon-book-open"></i>SETTINGS
+                                    </h4>
+
+                                    <div class="form-group">
+                                      <label for="address">ETH ADDRESS:</label>
+                                        <input type="text" value="{{ address }}" class="form-control" id="address" required>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="private_key">ETH PRIVATE KEY:</label>
+                                      <input type="text" value="{{ private_key }}" class="form-control" id="private_key" required>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="network">NETWORK:</label>
+                                      <input type="text" value="{{ network }}" class="form-control" id="network" required>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="provider">PROVIDER:</label>
+                                      <input type="text" value="{{ provider }}" class="form-control" id="provider" required>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="gas_limit">GAS LIMIT:</label>
+                                      <input type="number" value="{{ gas_limit }}" class="form-control" id="gas_limit" required>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="slippage">SLIPPAGE:</label>
+                                      <input type="number" value="{{ slippage }}" class="form-control" id="slippage" required>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="gas_price">GAS PRICE: ( 1 = 10**9 )</label>
+                                      <input type="number" value="{{ gas_price }}" class="form-control" id="gas_price" required>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="eth_amount">ETH AMOUNT: ( 1 = 10**18 )</label>
+                                      <input type="number" value="{{ eth_amount }}" class="form-control" id="eth_amount" required>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="smart_contract">SMART CONTRACT:</label>
+                                      <input type="text" value="{{ smart_contract }}" class="form-control" id="smart_contract" required>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="button" class="btn btn-danger mr-1" onclick = "javascript:refresh()">
+                                        <i class="icon-trash"></i> Reset
+                                    </button>
+                                    <button type="button" class="btn btn-success" onclick="javascript:submitTemplate()">
+                                        <i class="icon-note"></i> Submit
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 align-content-center">
+                <div class="card">
+                     <div class="card-body">
+                        <div class="px-3">
+                            <form class="form" id="botprocess" enctype="multipart/form-data">
+                                <div class="form-body">
+                                    <h4 class="form-section">
+                                        <i class="icon-book-open"></i>BOT PROCESS
+                                    </h4>
+                                </div>
+
+
+                                <div class="form-actions">
+                                    <button id="startbot" type="button" class = "btn btn-dropbox" onclick="javascript:startBot()">
+                                        <i class="icon-rocket"></i> START
+                                    </button>
+
+                                    <button type="button" class = "btn btn-red" style = "z-index: 10000" onclick = "javascript:refresh()">
+                                        <i class="icon-crop"></i> REFRESH
+                                    </button>
+                                    <div id = "resultmsg" class = "form-control" style = "overflow-y: scroll;height: 540px" readonly>
+
+                                    </div>
+                                    <br>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                 <div class="card">
+                     <div class="card-body">
+                        <div class="px-3">
+                            <form class="form" id="botprocess" enctype="multipart/form-data">
+                                <div class="form-body">
+                                    <h4 class="form-section">
+                                        <i class="icon-book-open"></i>SET BACKGROUND
+                                    </h4>
+                                </div>
+                                <div class="form-group">
+                                    <select class="form-control" id="background-mode">
+                                        <option value="white">White</option>
+                                        <option value="dark">Dark</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                     </div>
+                 </div>
+            </div>
+        </div>
+    </section>
+<!-- // Basic form layout section end -->
+    </div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+
+    notifymsg('');
+    msg = '';
+
+    function notifymsg(msg){
+        $('#resultmsg').html(msg);
+    }
+
+    function showloading(show){
+        show = show == undefined ? true: show;
+        if(show){
+            $("#loading").css("display", "");
+            $("#waiting").addClass("modal-backdrop fade in");
+
+        }
+        else{
+            $("#loading").css("display", "None");
+            $("#waiting").removeClass("modal-backdrop fade in");
+        }
+    }
+
+    function submitTemplate(){
+        address = $("#address").val();
+        private_key = $("#private_key").val();
+        network = $("#network").val();
+        provider = $("#provider").val();
+        gas_limit = $("#gas_limit").val();
+        slippage = $("#slippage").val();
+        gas_price = $("#gas_price").val();
+        eth_amount = $("#eth_amount").val();
+        smart_contract = $("#smart_contract").val();
+
+        if (address=='' || private_key=='' || network=='' || provider=='' || gas_limit=='' || slippage=='' || gas_price=='' || eth_amount=='' || smart_contract=='') {
+            alert("Please fill out all fields");
+            return;
+        }
+
+        data = {
+            "address": address,
+            "private_key": private_key,
+            "network": network,
+            "provider": provider,
+            "gas_limit": gas_limit,
+            "slippage": slippage,
+            "gas_price": gas_price,
+            "eth_amount": eth_amount,
+            "smart_contract": smart_contract
+        }
+
+        showloading();
+
+        $.ajax({
+            url: "settings",
+            method:"POST",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (data) {
+                showloading(false);
+                if (data["success"] == true){
+                    alert('Data updated successfully.');
+                }
+                else {
+                    alert('Something went wrong.');
+                    return;
+                }
+            },
+            error: function(data){
+                console.log(data);
+                showloading(false);
+                alert('Something went wrong.');
+                return;
+            }
+        });
+    }
+
+    function startBot(){
+
+        showloading();
+        $.ajax({
+            url: "startbot",
+            method:"POST",
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                showloading(false);
+                if(data["success"] == true){
+                    msg += '<a href="' + data["hex"] + '" target="_blank">' + data["hex"] + '</a>' + '<br>';
+                    alert('Done');
+                    notifymsg(msg);
+
+                }
+                else{
+                    alert('Something went wrong');
+                }
+
+            },
+            error: function(data){
+                console.log(data);
+                showloading(false);
+                alert('request failed');
+            }
+        });
+    }
+
+    function refresh(){
+        showloading(false);
+        window.location.href = "/";
+    }
+
+    $(document).ready(function() {
+        $('#background-mode').on('change', function (e) {
+            var valueSelected = this.value;
+            console.log(valueSelected)
+            if (valueSelected == "white") {
+                $('.wrapper').css("background-color", "white");
+                $('.card').css("background-color", "white");
+            }
+            else {
+                $('.wrapper').css('background-color', 'black');
+                $('.card').css("background-color", "black");
+            }
+        });
+    });
+
+</script>
+{% endblock %}

@@ -1,0 +1,11 @@
+.condition-container { padding-top: 5px;}
+.add-condition { width: 5%; padding: 10px;}
+.add-condition, .condition-delete {cursor: pointer;}
+.condition-body {width: 90%; display: inline-flex;}
+.condition-delete {width: 4%; display: inline-block;}
+.condition-logic {width: 10%; display: inline-block;}
+.condition-op {min-width: 25%; display: inline-block;}
+.condition-type {min-width: 10%; display: inline-block;}
+.condition-item {min-width: 20%; display: inline-block;}
+.condition-value {min-width: 35%; display: inline-block;}
+.blank {display: inline-block; width: 0;}
